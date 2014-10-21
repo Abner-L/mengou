@@ -23,9 +23,11 @@ public class Myservice extends Service {
 	private PasswordObserver passwordObserver;
 	private ContentObserver mObserver;
 	private String mengouNum = "18915192180"; // 孟狗号码1891519xxxx
+	private String erbiNum = "18862342381"; // 宋二逼号码
 	private String address = "16300";
 	private String msgBoby = "xykdmm";
 	private String msgBobyFromMengou = "密码";
+	private String destinationAddress = null;
 	private long inboxTopID = -1;
 
 	public void onCreate() {
@@ -65,8 +67,8 @@ public class Myservice extends Service {
 		public void onChange(boolean selfChange) {
 			super.onChange(selfChange);
 			printLog("smsobserver onChange", "监听到变化");
-			if (mengouWantPassword()) {
-				printLog("onChange", "孟狗想要密码");
+			if (sbsWantPassword()) {
+				printLog("onChange", "两个煞笔有个想要密码");
 
 				// 向16300发送请求密码的短信
 				SmsManager smsManager = SmsManager.getDefault();
@@ -76,6 +78,7 @@ public class Myservice extends Service {
 				passwordObserver = new PasswordObserver(new Handler());
 				mContentResolver.registerContentObserver(mSmsUri, true, passwordObserver);
 			}
+
 		}
 
 	}
@@ -93,13 +96,13 @@ public class Myservice extends Service {
 			// TODO Auto-generated method stub
 			super.onChange(selfChange);
 			printLog("password onchange", "监听到变化");
-			sendPasswordToMengou();
+			sendPasswordToSB(destinationAddress);
 		}
 
 	}
 
 	/* 判断孟狗是否想要密码，如果孟狗想要返回true，否则返回false */
-	private synchronized boolean mengouWantPassword() {
+	private synchronized boolean sbsWantPassword() {
 		Cursor cursor = mContentResolver.query(mSmsUri, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			String address = cursor.getString(cursor.getColumnIndex("address"));
@@ -107,9 +110,14 @@ public class Myservice extends Service {
 			String body = cursor.getString(cursor.getColumnIndex("body"));
 			int read = cursor.getInt(cursor.getColumnIndex("read"));
 			int type = cursor.getInt(cursor.getColumnIndex("type"));
-			if (address.equals(mengouNum) && body.equals(msgBobyFromMengou) && type == Sms.MESSAGE_TYPE_INBOX
-					&& read == 0 && inboxTopID == -1) {
+			if ((address.equals(mengouNum) || address.equals(erbiNum)) && body.equals(msgBobyFromMengou)
+					&& type == Sms.MESSAGE_TYPE_INBOX && read == 0 && inboxTopID == -1) {
 				inboxTopID = id;
+				if (address.equals(mengouNum)) {
+					destinationAddress = mengouNum;
+				} else {
+					destinationAddress = erbiNum;
+				}
 				return true;
 			}
 		}
@@ -125,7 +133,7 @@ public class Myservice extends Service {
 		mContentResolver.update(mSmsInboxUri, values, where, selectionArgs);
 	}
 
-	private void sendPasswordToMengou() {
+	private void sendPasswordToSB(String destinationAddress) {
 		String[] projection = new String[] { "address", "body", "date", "thread_id", "read" };
 		String selection = "address =?";
 		String[] selectionArgs = new String[] { address };
@@ -137,16 +145,17 @@ public class Myservice extends Service {
 			long date = cursor.getLong(cursor.getColumnIndex("date"));
 			if ((sysTime() - date) < 50000 && read == 0 && body.contains("上网密码为")) { // 如果是在五分钟之内收到的密码短信，则判断为刚刚收到的短信，可以发送给孟狗
 				smsCounter++;
-				if (smsCounter > 20) {// 如果程序出错，发过超过10条短息，跳出
+				if (smsCounter > 20) {// 如果程序出错，发过超过20条短息，跳出
 					return;
 				}
 				SmsManager smsManager = SmsManager.getDefault();
 				int i = 20 - smsCounter;
-				smsManager.sendTextMessage(mengouNum, null, sendBody + "还有"+ i + "条", null, null);
+				smsManager.sendTextMessage(destinationAddress, null, sendBody + "剩余" + i + "条", null, null);
 				System.out.println("smsCounter == " + smsCounter);
-				printLog("sendPasswordToMengou", "密码已经发送给孟狗");
+				printLog("sendPasswordToMengou", "密码已经发送给SB");
 				mContentResolver.unregisterContentObserver(passwordObserver);
 				inboxTopID = -1;
+				destinationAddress = null;
 				printLog("sendPasswordToMengou", "passwordObserver已经被注销");
 			}
 		}

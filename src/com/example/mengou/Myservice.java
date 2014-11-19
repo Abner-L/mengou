@@ -24,8 +24,6 @@ public class Myservice extends Service {
 	private ContentObserver mObserver;
 	private String mengouNum = "18915192180"; // 孟狗号码1891519xxxx
 	private String erbiNum = "18862342381"; // 宋二逼号码
-	// private String mengouNum = "10001"; // 孟狗号码1891519xxxx
-	// private String erbiNum = "10000"; // 宋二逼号码
 	private String address = "16300";
 	private String msgBoby = "xykdmm";
 	private String msgBobyFromMengou = "密码";

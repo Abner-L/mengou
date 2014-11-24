@@ -14,7 +14,7 @@ import android.provider.Telephony.Sms;
 import android.telephony.SmsManager;
 import android.util.Log;
 
-public class Myservice extends Service {
+public class MGSmsService extends Service {
 
 	private ContentResolver mContentResolver;
 	private Uri mSmsInboxUri;

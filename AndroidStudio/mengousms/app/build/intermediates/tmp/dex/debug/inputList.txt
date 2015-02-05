@@ -1,0 +1,5 @@
+/Users/abner-l/AndroidStudioProjects/mengousms/app/build/intermediates/classes/debug
+/Users/abner-l/AndroidStudioProjects/mengousms/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-6658c117293958a7383bcbb346a57fefebf27ee4.jar
+/Users/abner-l/AndroidStudioProjects/mengousms/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-ee61e93afd14a0844e38aa06eded19ff567a5d19.jar
+/Users/abner-l/AndroidStudioProjects/mengousms/app/build/intermediates/pre-dexed/debug/classes-0a1cda1bf6360330d5feee2396400da71d630ce1.jar
+/Users/abner-l/AndroidStudioProjects/mengousms/app/build/intermediates/pre-dexed/debug/classes-0e3737280140676fcc4bceba6d4c93a592ab3cc7.jar

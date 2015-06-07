@@ -1,10 +1,10 @@
-package com.vrcoder.mengousms;
+package com.baasplus.mengousms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import android.util.Log;
+import com.baasplus.mengousms.service.SmsService;
 
 
 /**
@@ -13,7 +13,6 @@ import android.util.Log;
 public class AutoStartReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("mengousms", "mengousms start...");
 
         Intent startServiceINT = new Intent(context, SmsService.class);
         context.startService(startServiceINT);

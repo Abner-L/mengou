@@ -5,8 +5,8 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.vrcoder.mengousms"
-        minSdkVersion 8
+        applicationId "com.baasplus.mengousms"
+        minSdkVersion 11
         targetSdkVersion 21
     }
 
@@ -21,4 +21,5 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support:appcompat-v7:21.0.3'
+    compile project(':swipemenulistview')
 }

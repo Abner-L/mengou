@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.coderpage.swipemenulistview.SwipeMenuListView
+        android:id="@+id/lv_numbers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#ddd"
+        android:dividerHeight="0.2dp"
+        android:footerDividersEnabled="true">
+    </com.coderpage.swipemenulistview.SwipeMenuListView>
+
+    <EditText
+        android:id="@+id/et_add_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:hint="@string/reminder_add_num"/>
+
+    <Button
+        android:id="@+id/btn_add_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:onClick="addNum"
+        android:text="@string/button_add"
+        android:visibility="invisible"/>
+</LinearLayout>

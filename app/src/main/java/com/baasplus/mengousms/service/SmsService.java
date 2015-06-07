@@ -1,4 +1,4 @@
-package com.vrcoder.mengousms;
+package com.baasplus.mengousms.service;
 
 import android.app.Service;
 import android.content.ContentResolver;

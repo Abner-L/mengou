@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="sms_keywords"
+        android:title="@string/pref_header_key_word_set"
+        android:hint="@string/pref_key_word_hint"
+        android:selectAllOnFocus="true"
+        android:inputType="textCapWords"
+        android:capitalize="words"
+        android:singleLine="false"/>
+</PreferenceScreen>

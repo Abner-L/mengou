@@ -3,7 +3,6 @@ package com.baasplus.mengousms;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.baasplus.mengousms.constants.Setting;
 
@@ -76,12 +75,8 @@ public class Global {
         return editor.commit();
     }
 
-    public boolean saveKeyWords(){
-        SharedPreferences preferences = context.getSharedPreferences(Setting.PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.putStringSet(Setting.KEY_SMS_KEYWORDS, keyWords);
-        return editor.commit();
+    public Set<String> getKeyWords() {
+        return keyWords;
     }
 
     public static void refreshKeyWords(String kws){
@@ -92,10 +87,6 @@ public class Global {
         String[] split = kws.split(" ");
         for (String keyWord: split){
             keyWords.add(keyWord);
-        }
-
-        for (String s: keyWords){
-            Log.e("keyword: ", s);
         }
     }
 
